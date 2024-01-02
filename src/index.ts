@@ -230,3 +230,57 @@ const catFact = async ():Promise<void> => {
 
 catFact();
 
+//Interfaces - just like types they are used to store data 
+interface Person{
+    firstName:string,
+    lastName:string,
+    age?: number,
+    id?:string | number,
+}
+
+let person1:Person={
+    firstName:"John",
+    lastName:"Doe",
+    id:"card"
+}
+
+//main differences - types can be used with unions while interfaces cant 
+type Animal = "dog" | "cat";
+//interface is ideal for objects data types. It doesnt support primitives
+//interface has read-only 
+interface Student {
+    age?:number,
+    readonly id:number,
+}
+
+let studentb:Student={
+    age:25,
+    id:34
+}
+
+//studentb.id =45, //cannot reassign id cause its a read-only property
+
+//interface to define function 
+interface MathFunc{
+    (y: number, x: number): number
+}
+
+const adding: MathFunc = (y:number, x:number): number => y + x
+adding(9, 4);
+
+//Type guards - used when you have union types or interfaces that extend each other
+function printAnimalDetails(animal: Animal, details: Person) {
+    switch (animal) {
+        case "dog":
+            if ("age" in details) {
+                console.log(`${details.firstName} is ${details.age} years old`);
+            } else {
+                console.log(`${details.firstName} does not provide his age`)
+            };
+            break;
+        default:
+            console.log(`I do not know how to handle ${animal}s yet`);
+    }
+};
+printAnimalDetails("dog",person1);
+
