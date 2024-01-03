@@ -155,18 +155,77 @@ const fetchData = () => {
     });
 };
 fetchData().then((data) => { console.log(data); }).catch((error) => console.log(error));
-const getData = () => {
-    return fetch('https://jsonplaceholder.typicode.com/todos?_limit=5').then((res) => {
-        if (!res.ok) {
-            throw new Error('Network Error!!');
-        }
-        return res.json();
-    }).then((data) => { return data; }).catch((error) => {
-        console.error('There was a problem with the fetch operation:', error);
-        throw error;
-    });
+let person1 = {
+    firstName: "John",
+    lastName: "Doe",
+    id: "card"
 };
-getData().then((todos) => {
-    todos.map((todo) => { console.log(todo.title); });
-}).catch(error => { console.log(error); });
-//using async and await instead of then and catch
+let studentb = {
+    age: 25,
+    id: 34
+};
+const adding = (y, x) => y + x;
+adding(9, 4);
+//Type guards - used when you have union types or interfaces that extend each other
+function printAnimalDetails(animal, details) {
+    switch (animal) {
+        case "dog":
+            if ("age" in details) {
+                console.log(`${details.firstName} is ${details.age} years old`);
+            }
+            else {
+                console.log(`${details.firstName} does not provide his age`);
+            }
+            ;
+            break;
+        default:
+            console.log(`I do not know how to handle ${animal}s yet`);
+    }
+}
+;
+printAnimalDetails("dog", person1);
+//classes 
+class Car {
+    constructor(model, year, price) {
+        this.model = model;
+        this.year = year;
+        this.price = price;
+    }
+    getPrice() {
+        return `${this.model}, made in ${this.year}, costs $${this.price}`;
+    }
+}
+const myCar1 = new Car("Audi", 2023, 2000);
+console.log(myCar1);
+myCar1.model = "BMW";
+console.log(myCar1);
+//you can set some values of the classes to private/protected
+//if you try to access them outside of the class it will give an error
+//console.log(myCar1.price)
+// to access a private property value, you typically create a method within the class that provides this information.
+console.log(myCar1.getPrice());
+class Vehicles {
+    //owner: string;
+    //color: string;
+    //TypeScript provides a shortcut to automatically generate properties from the constructor parameters using access modifiers (like public, private, protected)
+    constructor(owner, color) {
+        this.owner = owner;
+        this.color = color;
+        this.owner = owner;
+        this.color = color;
+    }
+    register() {
+        return `Registered to ${this.owner} with color ${this.color}`;
+    }
+}
+let car1 = new Vehicles('John Doe', 'Red');
+console.log(car1.register());
+//extending classes 
+class Motors extends Vehicles {
+    constructor(owner, color, engine) {
+        super(owner, color);
+        this.engine = engine;
+    }
+}
+const motor1 = new Motors("Eliud", "blue", "V12");
+console.log(motor1.color);

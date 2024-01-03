@@ -196,7 +196,7 @@ type ApiResponse = {
     completed:boolean,
 }
 
-const getData = (): Promise<ApiResponse []> => {
+/*const getData = (): Promise<ApiResponse []> => {
     return fetch('https://jsonplaceholder.typicode.com/todos?_limit=5').then((res) => {
         if(!res.ok) {
             throw new Error('Network Error!!')
@@ -209,14 +209,14 @@ const getData = (): Promise<ApiResponse []> => {
 };
 
 getData().then((todos:ApiResponse[]) => {todos.map((todo)=> {console.log(todo.title)})
-}).catch(error => {console.log(error)})
+}).catch(error => {console.log(error)})*/
 //using async and await instead of then and catch
 
 interface Cat {
-    fact: string,
+    fact: string;
     // Add other properties as needed
 }
-const catFact = async ():Promise<void> => {
+/*const catFact = async ():Promise<void> => {
     try { 
         const res = await fetch('https://catfact.ninja/fact?max_length=60');
         if (!res.ok) {throw new Error(`HTTP error! status: ${res.status}`)};
@@ -228,14 +228,14 @@ const catFact = async ():Promise<void> => {
     }
 } 
 
-catFact();
+catFact();*/
 
 //Interfaces - just like types they are used to store data 
 interface Person{
-    firstName:string,
-    lastName:string,
-    age?: number,
-    id?:string | number,
+    firstName:string;
+    lastName:string;
+    age?: number;
+    id?:string | number;
 }
 
 let person1:Person={
@@ -249,8 +249,8 @@ type Animal = "dog" | "cat";
 //interface is ideal for objects data types. It doesnt support primitives
 //interface has read-only 
 interface Student {
-    age?:number,
-    readonly id:number,
+    age?:number;
+    readonly id:number;
 }
 
 let studentb:Student={
@@ -268,6 +268,19 @@ interface MathFunc{
 const adding: MathFunc = (y:number, x:number): number => y + x
 adding(9, 4);
 
+//with interfaces you can extend just like in regular JS classes 
+interface Cattle {
+    name:string;
+    count:number;
+}
+
+interface Cows extends Cattle {
+    color: string;
+}
+
+
+
+
 //Type guards - used when you have union types or interfaces that extend each other
 function printAnimalDetails(animal: Animal, details: Person) {
     switch (animal) {
@@ -283,4 +296,63 @@ function printAnimalDetails(animal: Animal, details: Person) {
     }
 };
 printAnimalDetails("dog",person1);
+//classes 
+class Car { 
+    
+    model: string;
+    year: number;
+    private price:number;
+    constructor(model: string, year: number, price:number){
+        this.model = model
+        this.year = year
+        this.price=price
+    }
+   getPrice(){
+    return `${this.model}, made in ${this.year}, costs $${this.price}`
+   }
+    
+}
 
+const myCar1 = new Car("Audi", 2023, 2000);
+console.log(myCar1)
+myCar1.model = "BMW"
+console.log(myCar1)
+//you can set some values of the classes to private/protected
+//if you try to access them outside of the class it will give an error
+//console.log(myCar1.price)
+// to access a private property value, you typically create a method within the class that provides this information.
+console.log(myCar1.getPrice());
+
+//you can implement interface in a class
+interface Icar{
+    owner :string;
+    color:string;
+   register():string;
+}
+
+class Vehicles implements Icar {
+    //owner: string;
+    //color: string;
+//TypeScript provides a shortcut to automatically generate properties from the constructor parameters using access modifiers (like public, private, protected)
+    constructor( public owner:string, public color:string) {
+        this.owner = owner;
+        this.color = color;
+    }
+    register() {
+        return `Registered to ${this.owner} with color ${this.color}`
+        }
+}
+let car1 = new Vehicles('John Doe', 'Red');
+console.log(car1.register())
+
+//extending classes 
+class Motors extends Vehicles {
+    engine:string;
+    constructor(owner:string, color:string, engine:string) {
+        super(owner, color)
+        this.engine = engine;
+    }
+}
+
+const motor1 = new Motors("Eliud", "blue", "V12");
+console.log(motor1.color);
