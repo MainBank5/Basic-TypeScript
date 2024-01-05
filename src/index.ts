@@ -356,3 +356,14 @@ class Motors extends Vehicles {
 
 const motor1 = new Motors("Eliud", "blue", "V12");
 console.log(motor1.color);
+
+//generics 
+//generics is like a placeholder that allows you to define your type ambingously, which then you 
+//later define the type a explicitly 
+const getArray = (items: any[]) : any []=> {  
+    return new Array().concat(items)
+}
+
+const numArray = getArray([1, 2, 3, 4]);
+const strArray = getArray(["Eliud", "kay", "kange", "wan"]);
+strArray.push("shaun")
